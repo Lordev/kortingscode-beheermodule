@@ -12,11 +12,21 @@
 		"isolatedModules": true,
 		"jsx": "react-jsx",
 		"baseUrl": "./src",
+		"outDir": "./build",
+		"rootDir": "./src",
 		"paths": {
-			"*": ["*"]
+			"@components/*": ["components/*"],
+			"@utils/*": ["utils/*"],
+			"@styles/*": ["styles/*"],
+			"@hooks/*": ["hooks/*"],
+			"@context/*": ["context/*"],
+			"@pages/*": ["pages/*"],
+			"@assets/*": ["assets/*"],
+			"@store/*": ["store/*"]
 		},
 		"allowSyntheticDefaultImports": true,
 		"esModuleInterop": true
 	},
-	"include": ["src"]
+	"include": ["src/**/*"],
+	"exclude": ["node_modules", "build", "dist"]
 }

@@ -15,7 +15,6 @@ $dark: $black;
 $success: $kiwi-green;
 $danger: $racing-red;
 
-// Now we can edit the theme variable //
 $theme-colors: (
 	'primary': $primary,
 	'primary-dark': $primary-dark,
@@ -24,3 +23,7 @@ $theme-colors: (
 	'success': $success,
 	'danger': $danger,
 );
+
+$body-color: $black;
+$link-color: $black;
+$nav-link-color: $black;
