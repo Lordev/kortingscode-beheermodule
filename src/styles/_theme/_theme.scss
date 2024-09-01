@@ -1,0 +1,26 @@
+// _theme.scss //
+
+$white: #ffffff;
+$rich-black: #071418;
+$dark-yellow: #fccc17;
+$black: #000000;
+$kiwi-green: #64d800;
+$racing-red: #d80000;
+
+// Here we'll assign the primary, secondary, danger etc //
+$primary: $white;
+$primary-dark: $rich-black;
+$secondary: $dark-yellow;
+$dark: $black;
+$success: $kiwi-green;
+$danger: $racing-red;
+
+// Now we can edit the theme variable //
+$theme-colors: (
+	'primary': $primary,
+	'primary-dark': $primary-dark,
+	'secondary': $secondary,
+	'dark': $dark,
+	'success': $success,
+	'danger': $danger,
+);
