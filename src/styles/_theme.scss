@@ -1,5 +1,6 @@
-// _theme.scss //
+// _theme.scss
 
+// Define your custom colors
 $white: #ffffff;
 $rich-black: #071418;
 $dark-yellow: #fccc17;
@@ -7,23 +8,29 @@ $black: #000000;
 $kiwi-green: #64d800;
 $racing-red: #d80000;
 
-// Here we'll assign the primary, secondary, danger etc //
+//primary, secondary, etc. colors
 $primary: $white;
-$primary-dark: $rich-black;
 $secondary: $dark-yellow;
 $dark: $black;
 $success: $kiwi-green;
 $danger: $racing-red;
 
+$additional-colors: (
+	'muted': #ededed,
+);
+
+//  theme colors map
 $theme-colors: (
 	'primary': $primary,
-	'primary-dark': $primary-dark,
 	'secondary': $secondary,
 	'dark': $dark,
 	'success': $success,
 	'danger': $danger,
 );
 
+$theme-colors: map-merge($theme-colors, $additional-colors);
+
+//additional styling
 $body-color: $black;
 $link-color: $black;
 $nav-link-color: $black;
