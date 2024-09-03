@@ -2,7 +2,6 @@
 
 // Define your custom colors
 $white: #ffffff;
-$rich-black: #071418;
 $dark-yellow: #fccc17;
 $black: #000000;
 $kiwi-green: #64d800;
@@ -16,8 +15,53 @@ $success: $kiwi-green;
 $danger: $racing-red;
 
 $additional-colors: (
-	'muted': #ededed,
+	// Foreground Colors
+	'foreground': #ededed,
+	'foreground-dark': #d5d5d5,
+	'foreground-light': #dadada,
+
+	// Border Colors
+	'border': #dcdcdc,
+	'border-lighter': #0000003b,
+	'border-light': #707070,
+	'border-dark': #7070708b,
+	'border-darker': #0000005c,
+
+	// Text Colors
+	'text-muted': #00000065,
+
+	// Form Colors
+	'input-border': #7070708b,
+	'input-bg': #e5e5e5,
+
+	// Header & Navigation
+	'header': #eaeaea,
+	'nav': #071418,
+
+	// Checkbox
+	'checkbox-bg': #3e3e3e,
+
+	// Button
+	'button-muted': #dcdcdc
 );
+
+@each $name, $color in $additional-colors {
+	.#{$name} {
+		color: $color !important;
+	}
+}
+
+@each $name, $color in $additional-colors {
+	.bg-#{$name} {
+		background-color: $color !important;
+	}
+}
+
+@each $name, $color in $additional-colors {
+	.border-#{$name} {
+		border-color: $color !important;
+	}
+}
 
 //  theme colors map
 $theme-colors: (

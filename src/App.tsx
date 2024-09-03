@@ -13,6 +13,9 @@ const Communicatie = lazy(() => import('./pages/communicatie'));
 const Clubbeheer = lazy(() => import('./pages/clubbeheer'));
 const Configuratie = lazy(() => import('./pages/configuratie'));
 const Kortingscodes = lazy(() => import('./pages/management/kortingcodes'));
+const KortingscodesNieuw = lazy(
+	() => import('./pages/management/kortingcodes/nieuw')
+);
 const ProductGroepen = lazy(() => import('./pages/management/productgroepen'));
 const Artikelen = lazy(() => import('./pages/management/artikelen'));
 const Abonnementen = lazy(() => import('./pages/management/abonnementen'));
@@ -39,11 +42,17 @@ const App: React.FC = () => {
 								path="rittenkaarten"
 								element={<Rittenkaarten />}
 							/>
+							b
 							<Route path="artikelen" element={<Artikelen />} />
 							<Route
 								path="kortingscodes"
 								element={<Kortingscodes />}
-							/>
+							>
+								<Route
+									path="nieuw"
+									element={<KortingscodesNieuw />}
+								/>
+							</Route>
 						</Route>
 						<Route
 							path="/administratie"
@@ -60,6 +69,8 @@ const App: React.FC = () => {
 							path="/configuratie"
 							element={<Configuratie />}
 						/>
+
+						{/* Redirect default to /management/kortingscodes */}
 						<Route
 							path="*"
 							element={

@@ -9,7 +9,7 @@ import NavItem from './NavItem';
 
 export default function NavBar() {
 	return (
-		<Navbar bg="dark">
+		<Navbar bg="nav">
 			<Nav className="grid align-items-center justify-content-end w-100 px-4">
 				<NavItem>
 					<UserIcon color="white" width={18} height={21} />
