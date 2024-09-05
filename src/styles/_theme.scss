@@ -1,4 +1,5 @@
-// _theme.scss
+@import 'bootstrap/scss/functions';
+@import 'bootstrap/scss/variables';
 
 // Define your custom colors
 $white: #ffffff;
@@ -7,12 +8,19 @@ $black: #000000;
 $kiwi-green: #64d800;
 $racing-red: #d80000;
 
-//primary, secondary, etc. colors
+// Primary, secondary, etc. colors
 $primary: $white;
 $secondary: $dark-yellow;
 $dark: $black;
 $success: $kiwi-green;
 $danger: $racing-red;
+
+$theme-colors: (
+	'primary': $primary,
+	'secondary': $secondary,
+	'success': $success,
+	'danger': $danger,
+);
 
 $additional-colors: (
 	// Foreground Colors
@@ -46,35 +54,21 @@ $additional-colors: (
 );
 
 @each $name, $color in $additional-colors {
-	.#{$name} {
+	.text-#{$name} {
 		color: $color !important;
 	}
-}
 
-@each $name, $color in $additional-colors {
+	.border-#{$name} {
+		border-color: $color !important;
+	}
+
 	.bg-#{$name} {
 		background-color: $color !important;
 	}
 }
 
-@each $name, $color in $additional-colors {
-	.border-#{$name} {
-		border-color: $color !important;
-	}
-}
-
-//  theme colors map
-$theme-colors: (
-	'primary': $primary,
-	'secondary': $secondary,
-	'dark': $dark,
-	'success': $success,
-	'danger': $danger,
-);
-
-$theme-colors: map-merge($theme-colors, $additional-colors);
-
-//additional styling
+// Additional styling
 $body-color: $black;
+$text-color: $black;
 $link-color: $black;
 $nav-link-color: $black;

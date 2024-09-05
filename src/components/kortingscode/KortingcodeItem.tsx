@@ -1,14 +1,19 @@
 import { TrashIcon } from '../common/svg';
 import { Card, Button, Badge } from 'react-bootstrap';
+import { FormData } from 'lib/types/formSchema';
 
-const kortingcodeItemData = {
-	id: 1,
+const kortingcodeItemData: FormData = {
 	code: 'VRAAGROY',
-	korting: 10,
+	geheelGetal: '10',
+	decimaalGetal: '00',
+	geldigVanaf: '2021-01-01',
 	geldigTot: '2021-12-31',
-	actief: true,
-	createdAt: '2021-01-01',
-	updatedAt: '2021-01-01',
+	maximumGebruik: false,
+	aantalKeer: '',
+	kortingType: 'Bedrag',
+	kortingsPercentage: '',
+	titel: 'Roy trakteert',
+	omschrijving: 'Korting van Roy',
 };
 
 export default function KortingcodeItem() {
@@ -30,7 +35,8 @@ export default function KortingcodeItem() {
 			<Card.Body className="bg-foreground">
 				<Card.Title>Roy trakteert</Card.Title>
 				<Card.Text>
-					€{kortingcodeItemData.korting} korting op je volgende
+					€{kortingcodeItemData.geheelGetal},
+					{kortingcodeItemData.decimaalGetal} korting op je volgende
 					bestelling
 				</Card.Text>
 				<Button className="absolute" variant="outline-danger" size="sm">

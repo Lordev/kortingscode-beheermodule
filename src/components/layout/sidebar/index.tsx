@@ -51,7 +51,7 @@ const sideBarLinks = [
 export default function Sidebar() {
 	return (
 		<Nav
-			className="flex-column vh-100 bg-primary p-3 shadow-lg position-absolute top-0 start-0 align-items-center"
+			className="flex-column  bg-primary p-3 shadow-lg position-fixed top-0 start-0 vh-100 align-items-center"
 			variant="pills"
 		>
 			<Image

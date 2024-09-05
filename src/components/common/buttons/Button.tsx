@@ -5,24 +5,29 @@ interface ButtonProps extends React.HTMLAttributes<HTMLButtonElement> {
 	children: React.ReactNode;
 	variant?: string;
 	className?: string;
+	type?: 'button' | 'submit' | 'reset';
 }
 
 export default function Button({
 	children,
 	className,
 	variant = 'secondary',
+	type = 'button',
 	...props
 }: ButtonProps) {
-	const variantClass = variant === 'muted' && 'bg-button-muted';
+	const isCustomVariant = variant === 'muted';
+	const variantClass = isCustomVariant ? 'bg-button-muted' : '';
 
 	return (
 		<BootstrapButton
-			variant={variant}
-			className={`${clsx(
+			as="button"
+			variant={!isCustomVariant ? variant : undefined}
+			className={clsx(
 				'd-flex align-items-center gap-2 fw-bold',
 				variantClass,
 				className
-			)} `}
+			)}
+			type={type}
 			{...props}
 		>
 			{children}

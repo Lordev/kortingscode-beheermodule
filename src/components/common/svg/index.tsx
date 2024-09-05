@@ -12,6 +12,8 @@ import ChartPieIcon from './ChartPieIcon';
 import CommentsIcon from './CommentsIcon';
 import ShoppingIcon from './ShoppingIcon';
 import CalenderIcon from './CalendarIcon';
+import InfoIcon from './InfoIcon';
+import SlidersIcon from './SlidersIcon';
 
 export {
 	BullHornIcon,
@@ -28,4 +30,6 @@ export {
 	CommentsIcon,
 	ShoppingIcon,
 	CalenderIcon,
+	InfoIcon,
+	SlidersIcon,
 };
