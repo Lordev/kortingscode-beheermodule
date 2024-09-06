@@ -15,21 +15,30 @@ import axios from 'axios';
 
 export default function KortingscodeForm() {
 	const [formErrors, setFormErrors] = useState<Record<string, string>>({});
-	const { formData } = useFormStore();
+	const { formData, resetForm } = useFormStore();
 	const navigate = useNavigate();
 
 	const validateForm = () => {
 		try {
 			formSchema.parse(formData);
-			console.log('Form data is valid');
+			return true;
 		} catch (e) {
 			if (e instanceof z.ZodError) {
 				const errors: Record<string, string> = {};
+
 				e.errors.forEach(error => {
 					errors[error.path[0]] = error.message;
 				});
+
 				setFormErrors(errors);
+				console.log(formErrors);
+
+				console.log(
+					'Form contains errors. Submission aborted.',
+					errors
+				);
 			}
+			return false;
 		}
 	};
 
@@ -39,9 +48,9 @@ export default function KortingscodeForm() {
 
 	const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
 		e.preventDefault();
-		validateForm();
+		const isValid = validateForm();
 
-		if (Object.keys(formErrors).length === 0) {
+		if (isValid) {
 			axios
 				.post(
 					'https://66d8747f37b1cadd8054b943.mockapi.io/api/DiscountItem',
@@ -49,15 +58,13 @@ export default function KortingscodeForm() {
 				)
 				.then(response => {
 					console.log('Form submission successful:', response.data);
+					resetForm();
 				})
 				.catch(error => {
 					console.error('Form submission error:', error);
 				});
 		} else {
-			console.log(
-				'Form contains errors. Submission aborted.',
-				formErrors
-			);
+			console.log('Form contains errors. Submission aborted.');
 		}
 	};
 

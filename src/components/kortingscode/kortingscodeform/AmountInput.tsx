@@ -56,6 +56,7 @@ export default function AmountInput({
 								placeholder="00"
 								id="decimaalGetal"
 								value={formData.decimaalGetal}
+								maxLength={2}
 								onChange={e =>
 									setFormValue(
 										'decimaalGetal',
@@ -73,22 +74,18 @@ export default function AmountInput({
 						</div>
 					</div>
 				) : (
-					<div className="col-md-3">
-						<Form.Control
+					<div className="col-md-8">
+						<Form.Range
 							aria-label="Percentage"
-							placeholder="10"
-							maxLength={2}
 							id="percentage"
+							min="0"
+							max="100"
 							value={formData.kortingsPercentage}
 							onChange={e =>
 								setFormValue(
 									'kortingsPercentage',
 									e.target.value
 								)
-							}
-							isInvalid={
-								!!formData.kortingsPercentage &&
-								!/^\d{1,2}$/.test(formData.kortingsPercentage)
 							}
 						/>
 						<Form.Control.Feedback type="invalid">

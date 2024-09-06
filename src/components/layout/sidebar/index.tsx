@@ -56,7 +56,7 @@ export default function Sidebar() {
 		>
 			<Image
 				className="my-5"
-				src="https://via.placeholder.com/64"
+				src="https://via.placeholder.com/64x64"
 				roundedCircle
 			/>
 			{sideBarLinks.map(({ path, title, icon }) => (

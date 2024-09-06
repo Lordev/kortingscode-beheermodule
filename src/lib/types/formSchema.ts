@@ -1,44 +1,51 @@
 import { z } from 'zod';
 
-// Define the schema for the form data
-export const formSchema = z
-	.object({
-		titel: z.string().min(1, 'Titel is benodigd'),
-		code: z.string().min(1, 'Code is benodigd'),
-		omschrijving: z.string().optional(),
-		kortingType: z.enum(['Bedrag', 'Percentage']),
-		kortingsPercentage: z
-			.string()
-			.regex(/^\d{1,2}$/, 'Geef een geldig percentage')
-			.optional(),
-		geheelGetal: z
-			.string()
-			.regex(/^\d+$/, 'Geef een geldig heel getal')
-			.optional(),
-		decimaalGetal: z
-			.string()
-			.regex(/^\d{1,2}$/, 'Geef een geldig decimaal getal')
-			.optional(),
-		geldigVanaf: z.string().min(1, 'Geldig vanaf is benodigd'),
-		geldigTot: z.string().optional(),
-		maximumGebruik: z.boolean(),
-		aantalKeer: z.string().optional(),
-	})
-	.refine(
-		data => {
-			if (data.kortingType === 'Bedrag') {
-				return !!data.geheelGetal && !!data.decimaalGetal;
-			}
-			if (data.kortingType === 'Percentage') {
-				return !!data.kortingsPercentage;
-			}
-			return true;
-		},
-		{
-			message:
-				'Vul het correcte veld in op basis van het gekozen kortingstype.',
-			path: ['kortingType'],
-		}
-	);
+// Base schema without refinement
+const baseFormSchema = z.object({
+	titel: z.string().min(1, 'Titel is benodigd'),
+	code: z.string().min(1, 'Code is benodigd'),
+	omschrijving: z.string().optional(),
+	kortingType: z.enum(['Bedrag', 'Percentage']),
+	geldigVanaf: z.string().min(1, 'Geldig vanaf is benodigd'),
+	geldigTot: z.string().optional(),
+	maximumGebruik: z.boolean(),
+	aantalKeer: z.string().optional(),
+});
+
+// Schema for Bedrag type
+const bedragSchema = baseFormSchema.extend({
+	geheelGetal: z
+		.string()
+		.regex(/^\d+$/, 'Geef een geldig heel getal')
+		.min(1, 'Geheel getal is benodigd'),
+	decimaalGetal: z
+		.string()
+		.regex(/^\d{1,2}$/, 'Geef een geldig decimaal getal')
+		.min(1, 'Decimaal getal is benodigd'),
+	kortingsPercentage: z.string().optional(),
+});
+
+// Schema for Percentage type
+const percentageSchema = baseFormSchema.extend({
+	kortingsPercentage: z
+		.string()
+		.regex(/^\d{1,2}$/, 'Geef een geldig percentage')
+		.min(1, 'Percentage is benodigd'),
+	geheelGetal: z.string().optional(),
+	decimaalGetal: z.string().optional(),
+});
+
+// Union schema that selects the correct schema based on kortingType
+export const formSchema = z.union([
+	bedragSchema.refine(data => data.kortingType === 'Bedrag', {
+		message:
+			'Geheel getal en Decimaal getal zijn verplicht voor Bedrag type',
+		path: ['kortingType'],
+	}),
+	percentageSchema.refine(data => data.kortingType === 'Percentage', {
+		message: 'Percentage is verplicht voor Percentage type',
+		path: ['kortingType'],
+	}),
+]);
 
 export type FormData = z.infer<typeof formSchema>;
