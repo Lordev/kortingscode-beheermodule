@@ -32,16 +32,16 @@ export default function Management() {
 		<>
 			<div className="d-flex gap-3 align-items-center">
 				<ShoppingIcon width={30} height={27} />
-				<h2>Shop</h2>
+				<h1>Shop</h1>
 			</div>
-			<hr />
+			<hr className="border-3 border-border-light" />
 			<Navbar className="my-3">
 				{managementLinkTabs.map(tab => (
 					<Nav.Item
 						key={tab.path}
 						as={Link}
 						to={tab.path}
-						className={`d-flex align-items-center py-2 my-1 rounded px-3 justify-content-center text-decoration-none text-dark fw-semibold ${
+						className={`d-flex align-items-center py-2 my-1 rounded px-3 justify-content-center text-decoration-none text-dark fw-bold ${
 							location.pathname.startsWith(tab.path)
 								? 'bg-secondary '
 								: ''

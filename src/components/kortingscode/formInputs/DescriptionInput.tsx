@@ -1,5 +1,8 @@
 import { Form } from 'react-bootstrap';
 import { useFormStore } from 'lib/store/useDiscountFormStore';
+import { useEffect } from 'react';
+import axios from 'axios';
+import RefreshIcon from 'components/common/svg/RefreshIcon';
 
 interface DescriptionInputProps {
 	formErrors: { [key: string]: string };
@@ -10,11 +13,25 @@ export default function DescriptionInput({
 }: DescriptionInputProps) {
 	const { formData, setFormValue } = useFormStore();
 
+	const callRandomCode = async () => {
+		const transformUppercase = (str: string) => {
+			return str.toUpperCase();
+		};
+		const res = await axios.get(
+			'https://random-word-api.herokuapp.com/word'
+		);
+		setFormValue('code', transformUppercase(res.data[0]));
+	};
+
 	return (
 		<>
 			<div className="row mb-2 align-items-center">
 				<div className="col-md-4">
-					<Form.Label htmlFor="titel" aria-label="Titel">
+					<Form.Label
+						className="fw-bold"
+						htmlFor="titel"
+						aria-label="Titel"
+					>
 						Titel
 					</Form.Label>
 				</div>
@@ -34,17 +51,28 @@ export default function DescriptionInput({
 
 			<div className="row mb-2 align-items-center">
 				<div className="col-md-4">
-					<Form.Label htmlFor="code" aria-label="Code">
+					<Form.Label
+						className="fw-bold"
+						htmlFor="code"
+						aria-label="Code"
+					>
 						Code
 					</Form.Label>
 				</div>
-				<div className="col-md-8">
+				<div className="col-md-8 position-relative">
 					<Form.Control
 						type="text"
 						id="code"
 						value={formData.code}
+						placeholder="LENTE20"
 						onChange={e => setFormValue('code', e.target.value)}
 						isInvalid={!!formErrors.code}
+					/>
+					<RefreshIcon
+						className="position-absolute end-25 top-50 translate-middle-y text-gray-light cursor-pointer"
+						onClick={() => {
+							callRandomCode();
+						}}
 					/>
 					<Form.Control.Feedback type="invalid">
 						{formErrors.code}
@@ -54,6 +82,7 @@ export default function DescriptionInput({
 			<div className="row mb-2">
 				<div className="col-md-4 mt-2">
 					<Form.Label
+						className="fw-bold"
 						aria-label="Omschrijving"
 						htmlFor="omschrijving"
 					>
@@ -66,6 +95,7 @@ export default function DescriptionInput({
 						rows={5}
 						id="omschrijving"
 						value={formData.omschrijving}
+						placeholder="Omschrijf hier de kortingsactie. Waar is de korting voor bedoeld?"
 						onChange={e =>
 							setFormValue('omschrijving', e.target.value)
 						}

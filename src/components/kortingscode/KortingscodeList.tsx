@@ -1,11 +1,11 @@
 import KortingcodeItem from './KortingcodeItem';
 import axios from 'axios';
-import { useEffect, useState } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 import { useDiscountListStore } from 'lib/store/useDiscountListStore';
 import { fetchedDataArraySchema } from 'lib/types/fetchedData';
 
 export default function KortingscodeList() {
-	const { setDiscountList, discountList } = useDiscountListStore();
+	const { setDiscountList, sortedDiscountList } = useDiscountListStore();
 
 	const fetchData = () => {
 		axios
@@ -29,9 +29,9 @@ export default function KortingscodeList() {
 	}, []);
 
 	return (
-		<div className="w-100 py-5 px-4 border d-flex gap-4">
-			{discountList.map((data, index) => (
-				<KortingcodeItem key={index} data={data} />
+		<div className="w-100 py-5 px-4 border d-flex gap-4 h-50">
+			{sortedDiscountList.map(data => (
+				<KortingcodeItem key={data.ObjectID} data={data} />
 			))}
 		</div>
 	);

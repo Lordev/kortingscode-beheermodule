@@ -4,82 +4,98 @@ import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useFormStore } from 'lib/store/useDiscountFormStore';
 import { InfoIcon, SlidersIcon } from 'components/common/svg';
+import { Spinner } from 'react-bootstrap';
 import { z } from 'zod';
 import { formSchema } from 'lib/types/formSchema';
-import AmountInput from './AmountInput';
-import AmountTypeSelect from './AmountTypeSelect';
-import DateInput from './DateInput';
-import DescriptionInput from './DescriptionInput';
-import UsageInput from './UsageInput';
+import {
+	AmountInput,
+	AmountTypeSelect,
+	DateInput,
+	DescriptionInput,
+	UsageInput,
+} from './formInputs';
 import axios from 'axios';
 
 export default function KortingscodeForm() {
 	const [formErrors, setFormErrors] = useState<Record<string, string>>({});
+	const [hasTriedToSubmit, setHasTriedToSubmit] = useState(false);
+	const [isSubmitting, setIsSubmitting] = useState(false);
 	const { formData, resetForm } = useFormStore();
 	const navigate = useNavigate();
 
 	const validateForm = () => {
 		try {
 			formSchema.parse(formData);
+			setFormErrors({});
 			return true;
 		} catch (e) {
 			if (e instanceof z.ZodError) {
 				const errors: Record<string, string> = {};
 
-				e.errors.forEach(error => {
-					errors[error.path[0]] = error.message;
-				});
+				e.errors.forEach(
+					error => (errors[error.path[0]] = error.message)
+				);
 
 				setFormErrors(errors);
-				console.log(formErrors);
-
-				console.log(
-					'Form contains errors. Submission aborted.',
-					errors
-				);
+				console.log('Form errors:', errors);
 			}
 			return false;
 		}
 	};
 
 	useEffect(() => {
-		if (Object.keys(formErrors).length > 0) validateForm();
-	}, [formData]);
+		if (hasTriedToSubmit) {
+			validateForm();
+		}
+	}, [formData, hasTriedToSubmit]);
 
-	const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+	const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
 		e.preventDefault();
+
+		setHasTriedToSubmit(true);
+
+		if (isSubmitting) return;
+
+		setIsSubmitting(true);
 		const isValid = validateForm();
 
 		if (isValid) {
-			axios
-				.post(
+			try {
+				const response = await axios.post(
 					'https://66d8747f37b1cadd8054b943.mockapi.io/api/DiscountItem',
 					formData
-				)
-				.then(response => {
-					console.log('Form submission successful:', response.data);
-					resetForm();
-				})
-				.catch(error => {
-					console.error('Form submission error:', error);
-				});
+				);
+				console.log('Form submission successful:', response.data);
+				resetForm();
+				navigate('/management/kortingscodes');
+			} catch (error) {
+				console.error('Form submission error:', error);
+			} finally {
+				setIsSubmitting(false);
+			}
 		} else {
 			console.log('Form contains errors. Submission aborted.');
+			setIsSubmitting(false);
 		}
+	};
+
+	const handleCancel = () => {
+		resetForm();
+		navigate('/management/kortingscodes');
 	};
 
 	return (
 		<div className="border p-4">
-			<div className="w-75">
+			<div>
 				<div className="row">
-					<div className="col-sm-12 col-md-6">
+					<div className="col-md-12 col-xl-4">
 						<div className="d-flex gap-3">
 							<InfoIcon width={24} height={24} />
 							<h5 className="text-dark fw-bold">Informatie</h5>
 						</div>
 						<hr className="py-2 " />
 					</div>
-					<div className="col-sm-12 col-md-6">
+					<div className="col-md-12 col-xl-4">
 						<div className="d-flex gap-3">
 							<SlidersIcon width={24} height={24} />
 							<h5 className="text-dark fw-bold">Instellingen</h5>
@@ -88,11 +104,11 @@ export default function KortingscodeForm() {
 					</div>
 				</div>
 				<Form className="row" onSubmit={handleSubmit}>
-					<div className="col-sm-12 col-md-6">
+					<div className="col-md-12 col-xl-4">
 						<DescriptionInput formErrors={formErrors} />
 					</div>
 
-					<div className="col-sm-12 col-md-6">
+					<div className="col-md-12 col-xl-4">
 						<div className="mb-5 bg-input-bg p-4 ">
 							<AmountTypeSelect formErrors={formErrors} />
 							<hr />
@@ -107,14 +123,22 @@ export default function KortingscodeForm() {
 					</div>
 					<hr className="py-2 " />
 					<div className="d-flex gap-2">
-						<Button
-							onClick={() => navigate('/management/kortingscode')}
-							variant="muted"
-						>
+						<Button onClick={() => handleCancel()} variant="muted">
 							Annuleren
 						</Button>
-						<Button type="submit" variant="secondary">
-							Opslaan
+						<Button
+							type="submit"
+							variant="secondary"
+							disabled={isSubmitting}
+						>
+							{isSubmitting ? (
+								<>
+									Bezig...{' '}
+									<Spinner animation="border" size="sm" />
+								</>
+							) : (
+								'Opslaan'
+							)}
 						</Button>
 					</div>
 				</Form>

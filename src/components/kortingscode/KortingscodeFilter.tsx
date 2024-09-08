@@ -1,33 +1,48 @@
-import { useState } from 'react';
+import React, { useState } from 'react';
 import Button from '../common/buttons/Button';
 import SearchIcon from '../common/svg/SearchIcon';
 import { InputGroup } from 'react-bootstrap';
 import Form from 'react-bootstrap/Form';
 import { PlusIcon } from '../common/svg';
 import { useNavigate } from 'react-router-dom';
+import { useDiscountListStore } from 'lib/store/useDiscountListStore';
 
 export default function KortingscodeFilter() {
-	const [selectedOption, setSelectedOption] = useState('');
+	const { setSortingOption, setSearchQuery, setShowInactiveDiscounts } =
+		useDiscountListStore();
 	const navigate = useNavigate();
 
 	const handleClick = () => {
 		navigate('/management/kortingscodes/nieuw');
 	};
 
+	const handleSortChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
+		setSortingOption(e.target.value);
+	};
+
+	const handleSearch = (e: React.ChangeEvent<HTMLInputElement>) => {
+		setSearchQuery(e.target.value);
+	};
+
+	const handleShowInactive = (e: React.ChangeEvent<HTMLInputElement>) => {
+		setShowInactiveDiscounts(e.target.checked);
+	};
+
 	return (
 		<div className="d-flex gap-3 align-items-center">
 			<Form.Select
-				className="w-25"
-				value={selectedOption}
-				onChange={e => setSelectedOption(e.target.value)}
+				className="w-25 fs-sm"
+				onChange={handleSortChange}
+				style={{ maxWidth: '300px' }}
 			>
-				<option value="" disabled>
-					Sorteer op titel
-				</option>
-				<option value="1">Optie 1</option>
-				<option value="2">Optie 2</option>
+				<option value="title">Sorteer op titel</option>
+				<option value="date">Sorteer op geldig van datum</option>
 			</Form.Select>
-			<InputGroup className="w-25">
+			<InputGroup
+				className="w-25"
+				style={{ maxWidth: '300px' }}
+				onChange={handleSearch}
+			>
 				<Form.Control type="text" placeholder="Zoek op titel" />
 				<Button>
 					<SearchIcon width={14} height={14} />
@@ -37,6 +52,8 @@ export default function KortingscodeFilter() {
 			<Form.Check
 				type="checkbox"
 				id="custom-switch"
+				onChange={handleShowInactive}
+				className="align-content-center d-flex gap-2 fs-sm"
 				label={
 					<span>
 						Toon{' '}

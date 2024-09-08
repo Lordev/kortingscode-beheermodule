@@ -16,12 +16,12 @@ export default function SideBarItem({ path, title, icon }: SideBarItemProps) {
 		<Nav.Item
 			as={Link}
 			to={path}
-			className={`d-flex align-items-center py-4 px-2 my-1 rounded w-100 justify-content-center flex-column text-decoration-none text-dark  ${
+			className={`d-flex align-items-center py-4 px-2 my-1 rounded w-100 justify-content-center flex-column text-decoration-none text-dark gap-2  ${
 				isActive ? 'bg-secondary' : ''
 			}`}
 		>
 			{icon}
-			<span className="font-size-sm">{title}</span>
+			<span className="fs-xs font-secondary">{title}</span>
 		</Nav.Item>
 	);
 }

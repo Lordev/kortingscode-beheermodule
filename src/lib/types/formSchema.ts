@@ -6,8 +6,21 @@ const baseFormSchema = z.object({
 	code: z.string().min(1, 'Code is benodigd'),
 	omschrijving: z.string().optional(),
 	kortingType: z.enum(['Bedrag', 'Percentage']),
-	geldigVanaf: z.string().min(1, 'Geldig vanaf is benodigd'),
-	geldigTot: z.string().optional(),
+	geldigVanaf: z
+		.string()
+		.min(1, 'Geldig vanaf is benodigd')
+		.regex(
+			/^\d{4}-\d{2}-\d{2}$/,
+			'Geldig vanaf moet een geldige datum zijn'
+		),
+	geldigTot: z
+		.string()
+		.transform(val => (val === '' ? undefined : val)) // Convert empty string to undefined
+		.optional()
+		.refine(
+			val => !val || /^\d{4}-\d{2}-\d{2}$/.test(val),
+			'Geldig tot moet een geldige datum zijn'
+		), // Validate if present
 	maximumGebruik: z.boolean(),
 	aantalKeer: z.string().optional(),
 });
@@ -16,12 +29,12 @@ const baseFormSchema = z.object({
 const bedragSchema = baseFormSchema.extend({
 	geheelGetal: z
 		.string()
-		.regex(/^\d+$/, 'Geef een geldig heel getal')
-		.min(1, 'Geheel getal is benodigd'),
+		.min(1, 'Geef een geheel getal')
+		.regex(/^\d+$/, 'Geef een geldig heel getal'),
 	decimaalGetal: z
 		.string()
 		.regex(/^\d{1,2}$/, 'Geef een geldig decimaal getal')
-		.min(1, 'Decimaal getal is benodigd'),
+		.optional(),
 	kortingsPercentage: z.string().optional(),
 });
 

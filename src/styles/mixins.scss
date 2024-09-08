@@ -1,0 +1,7 @@
+@import 'bootstrap/scss/mixins';
+
+.custom-card {
+	@include card();
+	background-color: #f8f9fa;
+	border: 1px solid #dcdcdc;
+}

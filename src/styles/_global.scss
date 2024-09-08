@@ -1,0 +1,7 @@
+.form-control::placeholder,
+.form-select::placeholder {
+	font-size: $font-size-xs;
+	font-style: italic;
+	color: $text-muted;
+	opacity: 1;
+}

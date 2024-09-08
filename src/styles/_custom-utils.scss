@@ -1,0 +1,32 @@
+@import '_theme.scss';
+
+.hover-text-secondary {
+	transition: all 0.1s ease-in-out;
+	&:hover {
+		fill: $danger !important;
+	}
+}
+
+.cursor-pointer {
+	cursor: pointer;
+}
+
+.end-5 {
+	right: 5px !important;
+}
+
+.end-10 {
+	right: 10px !important;
+}
+
+.end-15 {
+	right: 15px !important;
+}
+
+.end-20 {
+	right: 20px !important;
+}
+
+.end-25 {
+	right: 25px !important;
+}

@@ -1,14 +1,27 @@
+@font-face {
+	font-family: 'Rockwell';
+	src: url(../../public/fonts/ROCK.TTF);
+	font-weight: 400;
+	font-style: normal;
+}
+
+@font-face {
+	font-family: 'Rockwell';
+	src: url(../../public/fonts/Rockwell-Bold.ttf);
+	font-weight: 700;
+	font-style: normal;
+}
+
 @import 'bootstrap/scss/functions';
 @import 'bootstrap/scss/variables';
 
-// Define your custom colors
+// Colors
 $white: #ffffff;
 $dark-yellow: #fccc17;
 $black: #000000;
 $kiwi-green: #64d800;
 $racing-red: #d80000;
 
-// Primary, secondary, etc. colors
 $primary: $white;
 $secondary: $dark-yellow;
 $dark: $black;
@@ -28,15 +41,15 @@ $additional-colors: (
 	'foreground-dark': #d5d5d5,
 	'foreground-light': #dadada,
 
-	// Border Colors
-	'border': #dcdcdc,
-	'border-lighter': #0000003b,
-	'border-light': #707070,
-	'border-dark': #7070708b,
-	'border-darker': #0000005c,
+	// Gray Colors
+	'gray-lighter': #0000003b,
+	'gray-light': #707070,
+	'gray': #dcdcdc,
+	'gray-dark': #7070708b,
+	'gray-darker': #0000005c,
 
 	// Text Colors
-	'text-muted': #00000065,
+	'muted': #00000060,
 
 	// Form Colors
 	'input-border': #7070708b,
@@ -57,7 +70,6 @@ $additional-colors: (
 	.text-#{$name} {
 		color: $color !important;
 	}
-
 	.border-#{$name} {
 		border-color: $color !important;
 	}
@@ -65,6 +77,75 @@ $additional-colors: (
 	.bg-#{$name} {
 		background-color: $color !important;
 	}
+}
+
+//Typography
+
+$font-size-xxs: 0.75rem;
+// 12px
+$font-size-xs: 0.875rem;
+// 14px
+$font-size-sm: 0.9375rem;
+// 15px
+$font-size-base: 1rem;
+// 16px
+$font-size-lg: 1.25rem;
+// 20px
+$font-size-xl: 1.5rem;
+// 24px
+$font-size-xxl: 1.6875rem;
+// 27px
+
+$font-arial: 'Arial', sans-serif;
+$font-helvetica: 'Helvetica Neue', Arial, sans-serif;
+$font-roboto: 'Roboto', sans-serif;
+$font-rockwell: 'Rockwell', sans-serif;
+
+$font-primary: $font-arial;
+$font-secondary: $font-helvetica;
+$font-tertiary: $font-roboto;
+
+$font-family-sans-serif: $font-primary;
+$font-weight-base: 400;
+
+$headings-font-family: $font-primary;
+$headings-font-weight: 700;
+
+$headings-margin-bottom: 0rem;
+
+.font-secondary {
+	font-family: $font-secondary;
+}
+
+.card-code-font {
+	font-family: $font-rockwell;
+	font-size: $font-size-xxl;
+}
+
+.custom-card-title.h5 {
+	font-family: $font-tertiary;
+	font-size: 1rem;
+	font-weight: 900;
+}
+
+$form-label-font-size: $font-size-xs;
+
+$font-sizes: (
+	'xxs': $font-size-xxs,
+	'xs': $font-size-xs,
+	'sm': $font-size-sm,
+	'base': $font-size-base,
+	'lg': $font-size-lg,
+	'xl': $font-size-xl,
+	'xxl': $font-size-xxl,
+);
+
+//border
+
+.border-dashed {
+	background: #d5d5d5 0% 0% no-repeat padding-box;
+	border: 2px dashed #0000005c;
+	border-radius: 4px;
 }
 
 // Additional styling

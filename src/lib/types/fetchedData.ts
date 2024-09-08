@@ -15,11 +15,14 @@ const fetchedDataSchema = z.object({
 	kortingsPercentage: z.string(),
 });
 
-// Define the schema for an array of fetched data
 export const fetchedDataArraySchema = z.array(fetchedDataSchema);
 
-// Infer the TypeScript type for a single fetched data object
 export type FetchedData = z.infer<typeof fetchedDataSchema>;
 
-// Infer the TypeScript type for an array of fetched data objects
 export type FetchedDataArray = z.infer<typeof fetchedDataArraySchema>;
+
+export interface FetchedDataWithState extends FetchedData {
+	isActive: boolean;
+	FutureActive: boolean;
+	isExpired: boolean;
+}

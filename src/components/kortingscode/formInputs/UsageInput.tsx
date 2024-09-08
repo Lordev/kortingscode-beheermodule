@@ -51,6 +51,7 @@ export default function UsageInput({ formErrors }: UsageInputProps) {
 				<div className="col-md-8">
 					<Form.Control
 						disabled={!formData.maximumGebruik}
+						min={1}
 						type="number"
 						className="form-date w-25"
 						id="aantalKeer"
