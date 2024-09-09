@@ -1,5 +1,6 @@
 import { Form } from 'react-bootstrap';
 import { useFormStore } from 'lib/store/useDiscountFormStore';
+import { Row, Col } from 'react-bootstrap';
 
 interface TypeInputProps {
 	formErrors: { [key: string]: string };
@@ -9,8 +10,8 @@ export default function Typeinput({ formErrors }: TypeInputProps) {
 	const { formData, setFormValue } = useFormStore();
 	return (
 		<>
-			<div className="row mb-3 align-items-center">
-				<div className="col-md-4">
+			<Row className="mb-3 align-items-center">
+				<Col lg={4}>
 					<Form.Label
 						aria-label="Type korting"
 						htmlFor="kortingType"
@@ -18,8 +19,8 @@ export default function Typeinput({ formErrors }: TypeInputProps) {
 					>
 						Type korting
 					</Form.Label>
-				</div>
-				<div className="col-md-8">
+				</Col>
+				<Col lg={8}>
 					<Form.Select
 						className="form-select"
 						id="kortingType"
@@ -35,8 +36,8 @@ export default function Typeinput({ formErrors }: TypeInputProps) {
 					<Form.Control.Feedback type="invalid">
 						{formErrors.kortingType}
 					</Form.Control.Feedback>
-				</div>
-			</div>
+				</Col>
+			</Row>
 		</>
 	);
 }

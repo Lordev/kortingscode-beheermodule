@@ -29,9 +29,9 @@ export default function KortingscodeFilter() {
 	};
 
 	return (
-		<div className="d-flex gap-3 align-items-center">
+		<div className="d-flex gap-3 align-items-center flex-wrap">
 			<Form.Select
-				className="w-25 fs-sm"
+				className=" fs-sm"
 				onChange={handleSortChange}
 				style={{ maxWidth: '300px' }}
 			>
@@ -39,7 +39,7 @@ export default function KortingscodeFilter() {
 				<option value="date">Sorteer op geldig van datum</option>
 			</Form.Select>
 			<InputGroup
-				className="w-25"
+				className=""
 				style={{ maxWidth: '300px' }}
 				onChange={handleSearch}
 			>
@@ -62,7 +62,7 @@ export default function KortingscodeFilter() {
 					</span>
 				}
 			/>
-			<Button onClick={handleClick} className="ms-auto">
+			<Button onClick={handleClick} className="ms-xxl-auto">
 				<PlusIcon width={14} height={14} />
 				Nieuwe kortingscode
 			</Button>

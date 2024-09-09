@@ -9,6 +9,8 @@ import {
 	ShoppingIcon,
 	WareHouseIcon,
 } from 'components/common/svg';
+import { useMobileLayoutStore } from 'lib/store/useMobileLayoutStore';
+import { useEffect } from 'react';
 
 const sideBarLinks = [
 	{
@@ -49,10 +51,42 @@ const sideBarLinks = [
 ];
 
 export default function Sidebar() {
+	const {
+		mobileBreakpointSize,
+		mobileBreakpoint,
+		SideMenuOpen,
+		setSideMenuClose,
+		setSideMenuOpen,
+		setMobileBreakpoint,
+	} = useMobileLayoutStore();
+
+	useEffect(() => {
+		window.addEventListener('resize', () => {
+			if (window.innerWidth < mobileBreakpointSize) {
+				setMobileBreakpoint(true);
+				setSideMenuClose();
+			} else {
+				setMobileBreakpoint(false);
+				setSideMenuOpen();
+			}
+		});
+	}, [setSideMenuClose]);
+
 	return (
 		<Nav
-			className="flex-column  bg-primary p-3 shadow-lg position-fixed top-0 start-0 vh-100 align-items-center"
+			className={`flex-column bg-primary p-3 shadow-lg align-items-center min-vh-100 top-0 flex-nowrap z-2 `}
 			variant="pills"
+			style={{
+				transition: mobileBreakpoint
+					? 'transform 0.3s ease-in-out'
+					: 'none',
+				transform: mobileBreakpoint
+					? SideMenuOpen
+						? 'translateX(0)'
+						: 'translateX(-100%)'
+					: 'none',
+				position: mobileBreakpoint ? 'fixed' : 'sticky',
+			}}
 		>
 			<Image
 				className="my-5"

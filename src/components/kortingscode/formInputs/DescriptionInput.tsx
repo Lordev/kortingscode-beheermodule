@@ -1,8 +1,8 @@
 import { Form } from 'react-bootstrap';
 import { useFormStore } from 'lib/store/useDiscountFormStore';
-import { useEffect } from 'react';
 import axios from 'axios';
 import RefreshIcon from 'components/common/svg/RefreshIcon';
+import { Row, Col } from 'react-bootstrap';
 
 interface DescriptionInputProps {
 	formErrors: { [key: string]: string };
@@ -25,8 +25,8 @@ export default function DescriptionInput({
 
 	return (
 		<>
-			<div className="row mb-2 align-items-center">
-				<div className="col-md-4">
+			<Row className="mb-2 align-items-center">
+				<Col md={4}>
 					<Form.Label
 						className="fw-bold"
 						htmlFor="titel"
@@ -34,8 +34,8 @@ export default function DescriptionInput({
 					>
 						Titel
 					</Form.Label>
-				</div>
-				<div className="col-md-8">
+				</Col>
+				<Col md={8}>
 					<Form.Control
 						type="text"
 						id="titel"
@@ -46,11 +46,11 @@ export default function DescriptionInput({
 					<Form.Control.Feedback type="invalid">
 						{formErrors.titel}
 					</Form.Control.Feedback>
-				</div>
-			</div>
+				</Col>
+			</Row>
 
-			<div className="row mb-2 align-items-center">
-				<div className="col-md-4">
+			<Row className="mb-2 align-items-center">
+				<Col md={4}>
 					<Form.Label
 						className="fw-bold"
 						htmlFor="code"
@@ -58,8 +58,8 @@ export default function DescriptionInput({
 					>
 						Code
 					</Form.Label>
-				</div>
-				<div className="col-md-8 position-relative">
+				</Col>
+				<Col md={8} className="position-relative">
 					<Form.Control
 						type="text"
 						id="code"
@@ -77,10 +77,10 @@ export default function DescriptionInput({
 					<Form.Control.Feedback type="invalid">
 						{formErrors.code}
 					</Form.Control.Feedback>
-				</div>
-			</div>
-			<div className="row mb-2">
-				<div className="col-md-4 mt-2">
+				</Col>
+			</Row>
+			<Row className="mb-2">
+				<Col md={4} className="mt-2">
 					<Form.Label
 						className="fw-bold"
 						aria-label="Omschrijving"
@@ -88,8 +88,8 @@ export default function DescriptionInput({
 					>
 						Omschrijving
 					</Form.Label>
-				</div>
-				<div className="col-md-8">
+				</Col>
+				<Col md={8}>
 					<Form.Control
 						as="textarea"
 						rows={5}
@@ -104,8 +104,8 @@ export default function DescriptionInput({
 					<Form.Control.Feedback type="invalid">
 						{formErrors.omschrijving}
 					</Form.Control.Feedback>
-				</div>
-			</div>
+				</Col>
+			</Row>
 		</>
 	);
 }

@@ -16,7 +16,7 @@ export default function SideBarItem({ path, title, icon }: SideBarItemProps) {
 		<Nav.Item
 			as={Link}
 			to={path}
-			className={`d-flex align-items-center py-4 px-2 my-1 rounded w-100 justify-content-center flex-column text-decoration-none text-dark gap-2  ${
+			className={`d-flex align-items-center py-4 my-1 rounded w-100 justify-content-center flex-column text-decoration-none text-dark gap-2 hover-bg-secondary ${
 				isActive ? 'bg-secondary' : ''
 			}`}
 		>

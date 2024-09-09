@@ -6,6 +6,7 @@ interface DiscountListStore {
 	discountList: FetchedDataWithState[];
 	sortedDiscountList: FetchedDataWithState[];
 	sortingOption: string;
+	showBorder: boolean;
 	searchQuery: string;
 	showInactiveDiscounts: boolean;
 	setDiscountList: (discountList: FetchedDataWithState[]) => void;
@@ -15,24 +16,37 @@ interface DiscountListStore {
 	addDiscount: (discount: FetchedDataWithState) => void;
 	removeDiscount: (discount: FetchedDataWithState) => void;
 	updateSortedDiscountList: () => void;
+	setShowBorder: () => void;
 }
 
 export const useDiscountListStore = create<DiscountListStore>((set, get) => ({
 	discountList: [],
 	sortedDiscountList: [],
 	showInactiveDiscounts: false,
+	showBorder: false,
 	sortingOption: '',
 	searchQuery: '',
+
+	setShowBorder: () => {
+		const { sortedDiscountList } = get();
+		if (sortedDiscountList.length > 0) {
+			set({ showBorder: true });
+		} else {
+			set({ showBorder: false });
+		}
+	},
 
 	setDiscountList: discountList => {
 		const updatedList = discountList.map(calculateDiscountActive); // Calculate the active state of each discount
 		set({ discountList: updatedList });
 		get().updateSortedDiscountList();
+		get().setShowBorder();
 	},
 
 	setSortingOption: option => {
 		set({ sortingOption: option });
 		get().updateSortedDiscountList();
+		get().setShowBorder();
 	},
 
 	setSearchQuery: query => {
@@ -43,6 +57,7 @@ export const useDiscountListStore = create<DiscountListStore>((set, get) => ({
 	setShowInactiveDiscounts: showInactiveDiscounts => {
 		set({ showInactiveDiscounts });
 		get().updateSortedDiscountList();
+		get().setShowBorder();
 	},
 
 	addDiscount: discount => {
@@ -60,20 +75,19 @@ export const useDiscountListStore = create<DiscountListStore>((set, get) => ({
 			),
 		}));
 		get().updateSortedDiscountList();
+		get().setShowBorder();
 	},
 
 	updateSortedDiscountList: () => {
 		const { discountList, sortingOption, searchQuery } = get();
 		let filteredList = discountList;
 
-		// Filter the list based on the search query
 		if (searchQuery) {
 			filteredList = discountList.filter(discount =>
 				discount.titel.toLowerCase().includes(searchQuery.toLowerCase())
 			);
 		}
 
-		// Filter the list based on the showInactiveDiscounts flag
 		if (!get().showInactiveDiscounts) {
 			filteredList = filteredList.filter(discount => discount.isActive);
 		}

@@ -5,7 +5,8 @@ import { useDiscountListStore } from 'lib/store/useDiscountListStore';
 import { fetchedDataArraySchema } from 'lib/types/fetchedData';
 
 export default function KortingscodeList() {
-	const { setDiscountList, sortedDiscountList } = useDiscountListStore();
+	const { setDiscountList, sortedDiscountList, showBorder } =
+		useDiscountListStore();
 
 	const fetchData = () => {
 		axios
@@ -28,8 +29,14 @@ export default function KortingscodeList() {
 		fetchData();
 	}, []);
 
+	console.log(showBorder);
+
 	return (
-		<div className="w-100 py-5 px-4 border d-flex gap-4 h-50">
+		<div
+			className={`w-100 py-5 px-4 ${
+				showBorder && 'border'
+			} d-flex gap-4 h-50`}
+		>
 			{sortedDiscountList.map(data => (
 				<KortingcodeItem key={data.ObjectID} data={data} />
 			))}

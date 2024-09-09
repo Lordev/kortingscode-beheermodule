@@ -1,5 +1,6 @@
 import Form from 'react-bootstrap/Form';
 import { useFormStore } from 'lib/store/useDiscountFormStore';
+import { Row, Col } from 'react-bootstrap';
 
 interface UsageInputProps {
 	formErrors: { [key: string]: string };
@@ -18,8 +19,8 @@ export default function UsageInput({ formErrors }: UsageInputProps) {
 
 	return (
 		<>
-			<div className="row mb-3 align-items-center">
-				<div className="col-md-4">
+			<Row className="mb-3 align-items-center">
+				<Col lg={4}>
 					<Form.Label
 						aria-label="Maximumgebruik"
 						htmlFor="maximumGebruik"
@@ -27,8 +28,8 @@ export default function UsageInput({ formErrors }: UsageInputProps) {
 					>
 						Maximumgebruik
 					</Form.Label>
-				</div>
-				<div className="col-md-8">
+				</Col>
+				<Col lg={8}>
 					<Form.Check
 						type="checkbox"
 						id="maximumGebruik"
@@ -36,10 +37,10 @@ export default function UsageInput({ formErrors }: UsageInputProps) {
 						checked={formData.maximumGebruik}
 						onChange={e => handleCheckboxChange(e)}
 					/>
-				</div>
-			</div>
-			<div className="row  align-items-center">
-				<div className="col-md-4">
+				</Col>
+			</Row>
+			<Row className="align-items-center">
+				<Col lg={4}>
 					<Form.Label
 						aria-label="Aantal keer te gebruiken"
 						htmlFor="aantalKeer"
@@ -47,8 +48,8 @@ export default function UsageInput({ formErrors }: UsageInputProps) {
 					>
 						Aantal keer te gebruiken
 					</Form.Label>
-				</div>
-				<div className="col-md-8">
+				</Col>
+				<Col lg={8}>
 					<Form.Control
 						disabled={!formData.maximumGebruik}
 						min={1}
@@ -63,8 +64,8 @@ export default function UsageInput({ formErrors }: UsageInputProps) {
 					<Form.Control.Feedback>
 						{formErrors.aantalKeer}
 					</Form.Control.Feedback>
-				</div>
-			</div>
+				</Col>
+			</Row>
 		</>
 	);
 }

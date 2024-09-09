@@ -15,6 +15,7 @@ import {
 	UsageInput,
 } from './formInputs';
 import axios from 'axios';
+import { Col, Row, Container } from 'react-bootstrap';
 
 export default function KortingscodeForm() {
 	const [formErrors, setFormErrors] = useState<Record<string, string>>({});
@@ -85,64 +86,61 @@ export default function KortingscodeForm() {
 	};
 
 	return (
-		<div className="border p-4">
-			<div>
-				<div className="row">
-					<div className="col-md-12 col-xl-4">
+		<Container className="border p-4">
+			<Form onSubmit={handleSubmit}>
+				<Row>
+					<Col md={5}>
 						<div className="d-flex gap-3">
 							<InfoIcon width={24} height={24} />
 							<h5 className="text-dark fw-bold">Informatie</h5>
 						</div>
 						<hr className="py-2 " />
-					</div>
-					<div className="col-md-12 col-xl-4">
+						<Col md={12} xl={12}>
+							<DescriptionInput formErrors={formErrors} />
+						</Col>
+					</Col>
+					<Col md={5}>
 						<div className="d-flex gap-3">
 							<SlidersIcon width={24} height={24} />
 							<h5 className="text-dark fw-bold">Instellingen</h5>
 						</div>
 						<hr className="py-2 " />
-					</div>
+						<Col md={12} xl={12}>
+							<div className="mb-5 bg-input-bg p-4 ">
+								<AmountTypeSelect formErrors={formErrors} />
+								<hr />
+								<AmountInput formErrors={formErrors} />
+							</div>
+							<div className="mb-5 bg-input-bg p-4 ">
+								<DateInput formErrors={formErrors} />
+							</div>
+							<div className="mb-5 bg-input-bg p-4 ">
+								<UsageInput formErrors={formErrors} />
+							</div>
+						</Col>
+					</Col>
+				</Row>
+				<hr className="py-2 " />
+				<div className="d-flex gap-2">
+					<Button onClick={() => handleCancel()} variant="muted">
+						Annuleren
+					</Button>
+					<Button
+						type="submit"
+						variant="secondary"
+						disabled={isSubmitting}
+					>
+						{isSubmitting ? (
+							<>
+								Bezig...{' '}
+								<Spinner animation="border" size="sm" />
+							</>
+						) : (
+							'Opslaan'
+						)}
+					</Button>
 				</div>
-				<Form className="row" onSubmit={handleSubmit}>
-					<div className="col-md-12 col-xl-4">
-						<DescriptionInput formErrors={formErrors} />
-					</div>
-
-					<div className="col-md-12 col-xl-4">
-						<div className="mb-5 bg-input-bg p-4 ">
-							<AmountTypeSelect formErrors={formErrors} />
-							<hr />
-							<AmountInput formErrors={formErrors} />
-						</div>
-						<div className="mb-5 bg-input-bg p-4 ">
-							<DateInput formErrors={formErrors} />
-						</div>
-						<div className="mb-5 bg-input-bg p-4 ">
-							<UsageInput formErrors={formErrors} />
-						</div>
-					</div>
-					<hr className="py-2 " />
-					<div className="d-flex gap-2">
-						<Button onClick={() => handleCancel()} variant="muted">
-							Annuleren
-						</Button>
-						<Button
-							type="submit"
-							variant="secondary"
-							disabled={isSubmitting}
-						>
-							{isSubmitting ? (
-								<>
-									Bezig...{' '}
-									<Spinner animation="border" size="sm" />
-								</>
-							) : (
-								'Opslaan'
-							)}
-						</Button>
-					</div>
-				</Form>
-			</div>
-		</div>
+			</Form>
+		</Container>
 	);
 }

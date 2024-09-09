@@ -89,7 +89,10 @@ export default function KortingcodeItem({
 					</Card.Title>
 					<Card.Text className="fs-xs text-muted">
 						{kortingType === 'Bedrag'
-							? `€${geheelGetal},${decimaalGetal} korting`
+							? `€${geheelGetal},${decimaalGetal.padEnd(
+									2,
+									'0'
+							  )} korting`
 							: kortingType === 'Percentage'
 							? `${kortingsPercentage}% korting`
 							: 'Onbekend'}

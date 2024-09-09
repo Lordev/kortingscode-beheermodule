@@ -14,6 +14,7 @@ import ShoppingIcon from './ShoppingIcon';
 import CalenderIcon from './CalendarIcon';
 import InfoIcon from './InfoIcon';
 import SlidersIcon from './SlidersIcon';
+import MobileMenuIcon from './MobileMenuIcon';
 
 export {
 	BullHornIcon,
@@ -32,4 +33,5 @@ export {
 	CalenderIcon,
 	InfoIcon,
 	SlidersIcon,
+	MobileMenuIcon,
 };

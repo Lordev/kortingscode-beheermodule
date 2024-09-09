@@ -1,4 +1,4 @@
-import { Form } from 'react-bootstrap';
+import { Col, Form, Row } from 'react-bootstrap';
 import { useFormStore } from 'lib/store/useDiscountFormStore';
 import { useEffect } from 'react';
 
@@ -19,19 +19,19 @@ export default function AmountInput({
 
 	return (
 		<>
-			<div className="row">
-				<div className="col-md-4">
+			<Row>
+				<Col md={4}>
 					<Form.Label
 						aria-label="Kortingsbedrag"
 						htmlFor="kortingsBedrag"
-						className="fw-bold mt-2"
+						className="fw-bold mt-2 "
 					>
 						Kortingsbedrag
 					</Form.Label>
-				</div>
+				</Col>
 				{formData.kortingType === 'Bedrag' ? (
-					<div className="col-md-8 d-flex w-50 ">
-						<div>
+					<Col lg={8} xl={5} className="d-flex">
+						<Form.Group>
 							<Form.Control
 								aria-label="Heel getal"
 								placeholder="1.000"
@@ -46,9 +46,9 @@ export default function AmountInput({
 							<Form.Control.Feedback type="invalid">
 								{formErrors.geheelGetal}
 							</Form.Control.Feedback>
-						</div>
-						<span className="mx-2 col-md-1 mt-3">,</span>
-						<div>
+						</Form.Group>
+						<span className="mx-2 mt-3">,</span>
+						<Form.Group>
 							<Form.Control
 								aria-label="Decimaal"
 								placeholder="00"
@@ -66,47 +66,50 @@ export default function AmountInput({
 							<Form.Control.Feedback type="invalid">
 								{formErrors.decimaalGetal}
 							</Form.Control.Feedback>
-						</div>
-					</div>
+						</Form.Group>
+					</Col>
 				) : (
-					<div className="col-md-8 row">
-						<div className="col-md-4">
-							<Form.Control
-								aria-label="Percentage"
-								id="percentage"
-								min="1"
-								max="99"
-								value={formData.kortingsPercentage}
-								onChange={e =>
-									setFormValue(
-										'kortingsPercentage',
-										e.target.value
-									)
-								}
-							/>
-						</div>
-						<div className="col-md-8">
-							<Form.Range
-								aria-label="Percentage"
-								id="percentage"
-								min="1"
-								max="99"
-								className="col-md-4"
-								value={formData.kortingsPercentage}
-								onChange={e =>
-									setFormValue(
-										'kortingsPercentage',
-										e.target.value
-									)
-								}
-							/>
-						</div>
-						<Form.Control.Feedback type="invalid">
-							{formErrors.kortingsPercentage}
-						</Form.Control.Feedback>
-					</div>
+					<Col lg={8}>
+						<Row>
+							<Col md={4}>
+								<Form.Control
+									aria-label="Percentage"
+									id="percentage"
+									min="1"
+									max="99"
+									value={formData.kortingsPercentage}
+									placeholder="00"
+									onChange={e =>
+										setFormValue(
+											'kortingsPercentage',
+											e.target.value
+										)
+									}
+								/>
+							</Col>
+							<Col md={8}>
+								<Form.Range
+									aria-label="Percentage"
+									id="percentage"
+									min="1"
+									max="99"
+									className="col-md-4"
+									value={formData.kortingsPercentage}
+									onChange={e =>
+										setFormValue(
+											'kortingsPercentage',
+											e.target.value
+										)
+									}
+								/>
+							</Col>
+							<Form.Control.Feedback type="invalid">
+								{formErrors.kortingsPercentage}
+							</Form.Control.Feedback>
+						</Row>
+					</Col>
 				)}
-			</div>
+			</Row>
 		</>
 	);
 }

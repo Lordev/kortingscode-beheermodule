@@ -1,5 +1,6 @@
 import { Form } from 'react-bootstrap';
 import { useFormStore } from 'lib/store/useDiscountFormStore';
+import { Row, Col } from 'react-bootstrap';
 
 interface DateInputProps {
 	formErrors: Record<string, string>;
@@ -10,8 +11,8 @@ export default function DateInput({ formErrors }: DateInputProps) {
 
 	return (
 		<>
-			<div className="row mb-3 align-items-center">
-				<div className="col-md-4">
+			<Row className="mb-3 align-items-center">
+				<Col lg={4}>
 					<Form.Label
 						aria-label="Geldig van datum"
 						htmlFor="geldigVanaf"
@@ -19,8 +20,8 @@ export default function DateInput({ formErrors }: DateInputProps) {
 					>
 						Geldig van datum
 					</Form.Label>
-				</div>
-				<div className="col-md-8">
+				</Col>
+				<Col lg={8}>
 					<Form.Control
 						type="date"
 						className="form-date"
@@ -36,10 +37,10 @@ export default function DateInput({ formErrors }: DateInputProps) {
 					<Form.Control.Feedback type="invalid">
 						{formErrors.geldigVanaf}
 					</Form.Control.Feedback>
-				</div>
-			</div>
-			<div className="row align-items-center">
-				<div className="col-md-4">
+				</Col>
+			</Row>
+			<Row className="align-items-center">
+				<Col lg={4}>
 					<Form.Label
 						aria-label="Geldig tot datum"
 						htmlFor="geldigTot"
@@ -48,8 +49,8 @@ export default function DateInput({ formErrors }: DateInputProps) {
 						Geldig tot datum
 					</Form.Label>
 					<i className="d-block">(optioneel)</i>
-				</div>
-				<div className="col-md-8">
+				</Col>
+				<Col lg={8}>
 					<Form.Control
 						type="date"
 						className="form-date"
@@ -67,8 +68,8 @@ export default function DateInput({ formErrors }: DateInputProps) {
 					<Form.Control.Feedback type="invalid">
 						{formErrors.geldigTot}
 					</Form.Control.Feedback>
-				</div>
-			</div>
+				</Col>
+			</Row>
 		</>
 	);
 }

@@ -34,22 +34,26 @@ export default function Management() {
 				<ShoppingIcon width={30} height={27} />
 				<h1>Shop</h1>
 			</div>
-			<hr className="border-3 border-border-light" />
-			<Navbar className="my-3">
-				{managementLinkTabs.map(tab => (
-					<Nav.Item
-						key={tab.path}
-						as={Link}
-						to={tab.path}
-						className={`d-flex align-items-center py-2 my-1 rounded px-3 justify-content-center text-decoration-none text-dark fw-bold ${
-							location.pathname.startsWith(tab.path)
-								? 'bg-secondary '
-								: ''
-						}`}
-					>
-						{tab.title}
-					</Nav.Item>
-				))}
+			<hr className="border-3" />
+			<Navbar className="mt-4 p-0">
+				<div className="no-gutter-row d-flex flex-wrap  g-col-2 justify-content-end">
+					{managementLinkTabs.map((tab, i) => (
+						<Nav.Item
+							key={tab.path}
+							as={Link}
+							to={tab.path}
+							className={`d-flex align-items-center py-2 px-3 justify-content-center text-decoration-none text-dark fw-bold hover-bg-secondary rounded-lg-top bg-input-bg flex-item 
+								${location.pathname.startsWith(tab.path) ? 'bg-secondary ' : ''}`}
+							style={{
+								flexGrow: 1,
+								flexBasis: '0',
+								maxWidth: '250px',
+							}}
+						>
+							{tab.title}
+						</Nav.Item>
+					))}
+				</div>
 			</Navbar>
 			<Outlet />
 		</>
