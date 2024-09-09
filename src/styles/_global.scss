@@ -1,3 +1,8 @@
+a:hover {
+	text-decoration: none;
+	color: inherit;
+}
+
 .form-control::placeholder,
 .form-select::placeholder {
 	font-size: $font-size-xs;
